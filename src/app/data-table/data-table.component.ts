@@ -33,7 +33,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    this.dataSource = new DataTableDataSource();
+    // this.dataSource = new DataTableDataSource();
     this.loadBoxData();
     this.loadDealsData();
 
@@ -49,7 +49,6 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.deals;
     console.log(this.deals + "DASASDDAS");
   }
 
@@ -65,8 +64,10 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   }
 
   private loadDealsData() {
+
     let login = localStorage.getItem('login');
     let password = localStorage.getItem('password');
+
 
     const params = {
       login,
@@ -77,7 +78,11 @@ export class DataTableComponent implements AfterViewInit, OnInit {
       .subscribe((res: any) => {
           //console.log(res);
           this.deals = res.dealList;
-          console.log(this.freeBoxList);
+          this.dataSource = new DataTableDataSource();
+          this.dataSource.data = res.dealList;
+          //this.dataSource = res;
+          //this.table.dataSource = this.dataSource.data;
+          console.log(this.dataSource.data);
         }
       );
   }
