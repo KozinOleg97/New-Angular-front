@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestService } from '../../services/rest.service';
 import { HeaderService } from '../../services/header.service';
@@ -25,24 +25,24 @@ export class LoginComponent implements OnInit {
 
 
 
-  logIn(l:string,p:string){
+  logIn(l: string, p: string) {
 
      const params = {
       login: l,
       password: p
     };
-    this.restService.call('log', params, 'POST')
+     this.restService.call('log', params, 'POST')
       .subscribe((res: any) => {
-        //console.log(res);
-        if(res.result==true){
+        // console.log(res);
+        if (res.result == true) {
           localStorage.setItem('login', params.login);
           localStorage.setItem('role', res.role);
           localStorage.setItem('password', params.password);
 
 
+
           this.router.navigate(['/home']);
-        }
-        else window.alert("incorrect login or password");
+        } else { window.alert('incorrect login or password'); }
 
       });
 

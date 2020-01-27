@@ -29,9 +29,10 @@ export class MainComponent implements OnInit {
     this.loadBoxData();
     this.loadDealsData();
 
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken != null && accessToken != 'undefined') {
-      this.headerService.setTitle('Добро пожаловать, ' + localStorage.getItem('username') + '!');
+    const login = localStorage.getItem('login');
+    console.log('login');
+    if (login != null && login != 'undefined') {
+      this.headerService.setTitle('Добро пожаловать, ' + localStorage.getItem('login') + '!');
     } else {
      this.headerService.setTitle('Добро пожаловать, гость!');
     }

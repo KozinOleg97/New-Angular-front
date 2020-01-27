@@ -6,8 +6,8 @@ import { Employees } from '../javaclasses/classes';
 })
 export class EditDataService {
 
-  public editData:any;
-  public exist:boolean;
-  
+  public editData: any;
+  public exist: boolean;
+
   constructor() { }
 }

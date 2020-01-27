@@ -23,21 +23,21 @@ const appRoutes: Routes = [
   { path: 'home', component: MainComponent },
   { path: 'routes', component: RoutesComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'root',  
+  { path: 'root',
   loadChildren: () => import('./modules/root/root.module').then(mod => mod.RootModule),
   canActivate: [AuthGuardService]
   }
-]
+];
 
 @NgModule({
-  imports:      [ 
+  imports:      [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule,   
-    HttpModule, BrowserAnimationsModule 
+    HttpClientModule,
+    HttpModule, BrowserAnimationsModule
       ],
-      exports:[
+      exports: [
         RouterModule
       ],
       providers: [
@@ -47,7 +47,7 @@ const appRoutes: Routes = [
         AuthGuardService
         ],
 
-  declarations: [ 
+  declarations: [
     AppComponent,
     MainComponent,
     LoginComponent,
