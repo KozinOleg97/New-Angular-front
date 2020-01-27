@@ -11,14 +11,14 @@ p{
 }
 
 .style1{
-    color: #f5f5f5; 
+    color: #f5f5f5;
     /* font-family: ‘Open Sans Condensed’, sans-serif;  */
-    font-size: 24px; 
-    font-weight: 700; 
-    line-height: 64px; 
-    margin: 0 0 0; 
-    padding: 0px 0px; 
-    text-align: center; 
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 64px;
+    margin: 0 0 0;
+    padding: 0px 0px;
+    text-align: center;
     text-transform: uppercase;
 }
 
@@ -29,3 +29,17 @@ p{
     color: #f5f5f5;
 }
 
+table{
+  text-align: left;
+  vertical-align: top;
+  margin: auto;
+  width: 100%;
+}
+tr{
+  vertical-align: top;
+  text-align: center;
+}
+th{
+  vertical-align: top;
+  text-align: center;
+}

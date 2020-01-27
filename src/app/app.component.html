@@ -18,11 +18,11 @@
     <a routerLink="/root">Личный кабинет</a>
   </li>
 
-  <li class="active" *ngIf="!loggedIn" style="float:right">
-    <a routerLink="/login">Войти</a>
-  </li>
+<!--  <li class="active" *ngIf="!loggedIn" style="float:right">-->
+<!--    <a routerLink="/login">Войти</a>-->
+<!--  </li>-->
 
-  <li class="active" *ngIf="loggedIn" style="float:right">
+  <li class="active" *ngIf="loggedIn == false" style="float:right">
     <a (click)="logOut()">Выйти</a>
   </li>
 
@@ -34,7 +34,7 @@
     <div class="container-fluid">
       <div class="navabar-header">
 
-        
+
         <p class="header"> {{title}} </p>
 
         <table class="navTable">
@@ -85,4 +85,4 @@
       <!-- </div>
     </div>
   </nav>
-</body> --> 
+</body> -->

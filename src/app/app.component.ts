@@ -6,8 +6,8 @@ import {ChangeDetectionStrategy} from '@angular/core';
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
-  styleUrls: [ './app.component.css' ] 
-  
+  styleUrls: [ './app.component.css' ]
+
 })
 
 
@@ -22,10 +22,10 @@ export class AppComponent  {
     loggedIn:boolean;
 
 
-  ngOnInit() {    
-    const accessToken = localStorage.getItem('accessToken');
-      if(accessToken!=null && accessToken!="undefined") {
-        this.headerService.setTitle('Добро пожаловать, '+localStorage.getItem("username")+'!');
+  ngOnInit() {
+    const accessToken = localStorage.getItem('login');
+      if(accessToken!=null) {
+        this.headerService.setTitle('Добро пожаловать, '+localStorage.getItem("login")+'!');
         this.loggedIn = true;
       }
         else{
@@ -38,21 +38,21 @@ export class AppComponent  {
      if((this.title=='Добро пожаловать, гость!!' &&
       this.loggedIn == true) ||
       (this.title!='Добро пожаловать, гость!' &&
-      this.loggedIn == false) 
+      this.loggedIn == false)
      ){
       this.loggedIn =!this.loggedIn;
       window.location.reload();
-     }       
-     
+     }
+
     });
   }
 
 logOut(){
   localStorage.clear();
   this.headerService.setTitle('Добро пожаловать, гость!');
-  this.router.navigate(['home']).then(()=>
+  this.router.navigate(['login']).then(()=>
   window.location.reload());
 }
 
-} 
+}
 

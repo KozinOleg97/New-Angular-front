@@ -17,7 +17,7 @@ export class MainComponent implements OnInit {
   public value;
   constructor(
     private headerService: HeaderService,
-  private restService: RestService,
+    private restService: RestService,
 
 
     ) { }

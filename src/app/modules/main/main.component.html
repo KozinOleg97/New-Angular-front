@@ -1,3 +1,4 @@
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">-->
 
 <!--<div class="container">-->
 
@@ -41,12 +42,15 @@
 <!--</div>-->
 
 <table>
-  <tr *ngFor="let deal of deals">
-    <td>{{deal.id}}</td>
+  <tr>ID сделки</tr>
+  <tr></tr>
+  <tr>ID бокса</tr>
+
+  <tr *ngFor="let deal of deals ">
+    <td>Состояние{{deal.id}}</td>
     <td>{{deal.status}}</td>
     <td>{{deal.box.id}}</td>
   </tr>
-
 </table>
 
 
@@ -63,5 +67,4 @@
     </option>
   </datalist>
 </p>
-
 
