@@ -5,7 +5,7 @@
 </div> -->
 <!--  ------------------>
 <p class="header"> {{title}} </p>
-<ul>
+<ul *ngIf="loggedIn==true">
   <li>
     <a routerLink="/home" >Сделки</a>
   </li>

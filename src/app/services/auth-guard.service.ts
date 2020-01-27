@@ -7,7 +7,9 @@ import { Router, CanActivate } from '@angular/router';
     providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
-
+  /**
+   * Эта штука непонятно зачем
+   */
   public logged:boolean;
 
   constructor(
@@ -16,7 +18,7 @@ export class AuthGuardService implements CanActivate {
      ) {}
   canActivate(): boolean {
       const accessToken = localStorage.getItem('accessToken');
-      console.log(accessToken);
+      console.log('ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd' + accessToken);
       if(accessToken==null){
         window.alert("log in first, horosho?");
         this.router.navigate(['login']);

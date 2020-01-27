@@ -32,6 +32,8 @@ export class AppComponent {
     this._isAdmin = value;
   }
 
+
+  // TODO: check tis method
   ngOnInit() {
     const login = localStorage.getItem('login');
     const role = localStorage.getItem('role');
@@ -59,6 +61,7 @@ export class AppComponent {
           this.loggedIn === false)
       ) {
         this.loggedIn = !this.loggedIn;
+        console.log('OLD_RELOAD_FUNC!?');
         window.location.reload();
       }
 
@@ -78,7 +81,9 @@ export class AppComponent {
     localStorage.clear();
     this.headerService.setTitle('Добро пожаловать, гость!');
     this.router.navigate(['login']).then(() =>
-      window.location.reload());
+      // console.log('logout')
+      window.location.reload()
+     );
   }
 
 }
