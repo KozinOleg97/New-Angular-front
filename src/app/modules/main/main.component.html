@@ -54,17 +54,25 @@
 </table>
 
 
-<p> Список свободных мест <input #freeBoxesInput list="freeBoxInputList" value= ""
-                   required (change)="routeChanged(freeBoxesInput.value)">
-  <datalist #freeBoxInputList id="freeBoxInputList">
-    <option *ngFor="let box of freeBoxList">
-      <h1>Место: </h1>
-      {{box.id}}
-      <h1>Расположение: X </h1>
-      {{box.col}}
-      <h1>Y: </h1>
-      {{box.row}}
-    </option>
-  </datalist>
-</p>
+<div class="dealAdder">
+  <div class="form-group">
+    <label>Место</label>
+    <select class="form-control" name="box"
+            [(ngModel)]="selectedBox" #boxSelect="ngModel">
+      <option *ngFor="let box of freeBoxList" [value]="box.id">
+        {{box.row}}
+        {{box.col}}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-default" (click)="selectBoxClick(boxSelect)">
+      Добавить
+    </button>
+  </div>
+</div>
+
+
+
 
