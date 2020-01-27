@@ -1,0 +1,42 @@
+<table width="99%">
+    <tr>
+        <td width="33%"></td>
+        <td width="33%">
+            <table  class="fon1">
+                <tr>
+
+                    <td>
+                        Вход на сайт
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        <input #loginInput required type="text" placeholder="login">
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        <input #passwordInput type="password" placeholder="password">
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        <button (click)="logIn(loginInput.value,passwordInput.value)">
+                            Войти
+                        </button>
+                    </td>
+
+                </tr>
+            </table>
+        </td>
+        <td width="33%"></td>
+    </tr>
+
+
+</table>

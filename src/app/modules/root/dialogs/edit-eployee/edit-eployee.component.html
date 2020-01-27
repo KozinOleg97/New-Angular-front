@@ -1,0 +1,68 @@
+<div *ngIf="data!=null">
+
+  <table width=100%>
+    <tr>
+      <td width=35%></td>
+      <td align="left" >
+
+  <p *ngIf="data.employeeId!=null;">ID = {{data.employeeId}}</p>
+  <p>FIO = <input #FIO required  type="text" 
+    placeholder="фамилия имя отчество" value={{data.fio}}
+    size = {{data.fio.length}}
+    onkeypress="this.size = this.value.length;"
+    (change)="FIOChanged(FIO.value)">
+  </p>
+  <p>Уровень доступа <select #accessLevel  required (change)="accessLevelChanged(accessLevel.value)"> 
+      <option *ngFor="let level of [1,2,3]"
+      [attr.selected]="data.accessLevel == level ? data.accessLevel : null">
+      {{level}}
+    </option>
+    </select>
+  </p>
+
+  <p *ngIf="exist;">Доступность <input *ngIf="data.isAvailable==true;"
+     type="checkbox" #isAvailable  required checked
+     (click)="isAvailableChanged(isAvailable.checked)" 
+    >
+    <input *ngIf="data.isAvailable!=true;"
+     type="checkbox" #isAvailable  required
+     (click)="isAvailableChanged(isAvailable.checked)" 
+    >
+  </p>
+
+  <p>Должность <select #role  required (change)="roleChanged(role.value)">
+      <option *ngFor="let role of ['driver','dispatcher','admin']"
+      [attr.selected]="data.role == role ? data.role : null">
+      {{role}}
+    </option>>
+    </select>
+  </p>
+
+  <p>График работы <select #timeMode  required (change)="timeModeChanged(timeMode.value)"> 
+      <option *ngFor="let timeMode of [5,2]"
+      [attr.selected]="data.timeMode == timeMode ? data.timeMode : null">
+      {{timeMode}}/2
+    </option>>
+    </select>
+  </p>
+
+  <p *ngIf="exist==true"> 
+    Изменить логин/пароль
+    <input #hideLogPas type="checkbox"
+    (click)="changeAccountData(hideLogPas.checked)">
+  </p>
+  <p *ngIf="isChangeAccountData==true ||!exist">
+    Новый логин<input required #login (change)="loginChanged(login.value)"> 
+</p>
+<p *ngIf="isChangeAccountData==true ||!exist">
+    Новый пароль<input required #password (change)="passwordChanged(password.value)"> 
+</p>
+
+</td>
+</tr>
+</table>
+</div>
+
+<button *ngIf="exist==false;" (click)="createNew()" type="submit">Создать</button>
+<button *ngIf="exist==true;" (click)="confirm()" type="submit">Подтвердить изменения</button>
+<button (click)="decline()">Отмена</button>

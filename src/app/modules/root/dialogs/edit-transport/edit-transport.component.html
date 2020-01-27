@@ -1,0 +1,31 @@
+<div *ngIf="data!=null">
+
+    <table >
+        <tr>
+            <td width=35%></td>
+            <td align="left" >
+    <p *ngIf="data.transportId!=null;">ID = {{data.transportId}}</p>
+    <p>госномер = <input #number required  type="text" 
+      value={{data.number}}
+      size = {{data.number.length}}
+      onkeypress="this.size = this.value.length;"
+      (change)="numberChanged(number.value)">
+    </p>  
+
+    <p *ngIf="exist;">Доступность <input *ngIf="data.isAvailable==true;"
+      type="checkbox" #isAvailable  required checked
+      (click)="isAvailableChanged(isAvailable.checked)" 
+     >
+     <input *ngIf="data.isAvailable!=true;"
+      type="checkbox" #isAvailable  required
+      (click)="isAvailableChanged(isAvailable.checked)" 
+     >
+    </p>
+  </td>
+  </tr>
+  </table>
+
+  
+  <button *ngIf="exist==false;" (click)="createNew()" type="submit">Создать</button>
+  <button *ngIf="exist==true;" (click)="confirm()" type="submit">Подтвердить изменения</button>
+  <button (click)="decline()">Отмена</button>

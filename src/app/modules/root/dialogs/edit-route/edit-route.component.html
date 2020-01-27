@@ -1,0 +1,40 @@
+<div class="ots" *ngIf="data!=null">
+
+
+  <p *ngIf="data.routeId!=null;">ID = {{data.routeId}}</p>
+  <p>Номер маршрута = <input #sign required type="text" value={{data.sign}} size={{data.sign.length}}
+      onkeypress="this.size = this.value.length;" (change)="signChanged(sign.value)">
+  </p>
+  <p>Необходимо транспорта на маршруте на одну смену =
+    <input #transportNeeded required type="text" value={{data.transportNeeded}} size={{data.sign.length}}
+      (change)="transportNeededChanged(transportNeeded.value)">
+  </p>
+
+  <table>
+    <tr>
+      <td>Названия остановок</td>
+      <td>Время на прибытие с предыдущей остановки</td>
+    </tr>
+    <tr *ngFor="let stop of data.stopTimings; let i = index">
+      <td>
+        <input #stopsList required type="text" value={{data.stopsList[i]}}
+          (change)="stopsListChanged(stopsList.value,i)">
+      </td>
+      <td>
+        <input #stopTimings required type="text" value={{data.stopTimings[i]}}
+          (change)="stopTimingsChanged(stopTimings.value,i)">
+      </td>
+      <img (click)="removeStop(i)" src="https://www.iconsdb.com/icons/preview/white/trash-2-xxl.png" class="btnimg"
+        title="удалить" alt="удалить">
+    </tr>
+    <img (click)="addStop()" src="https://www.iconsdb.com/icons/preview/white/add-row-xxl.png" class="btnimg"
+      title="добавить" alt="добавить">
+  </table>
+
+
+
+  <button *ngIf="exist==false;" (click)="createNew()" type="submit">Создать</button>
+  <button *ngIf="exist==true;" (click)="confirm()" type="submit">Подтвердить изменения</button>
+  <button (click)="decline()">Отмена</button>
+
+</div>

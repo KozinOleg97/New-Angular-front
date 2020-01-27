@@ -1,0 +1,63 @@
+
+<div *ngIf="data!=null">
+
+  <table>
+    <tr>
+      <td width=30%></td>
+      <td align="left" >
+
+  <p *ngIf="data.recordId!=null;">ID = {{data.recordId}}</p>
+  <p>Дата = <input #Date required  type="date"
+    (change)="DateChanged(Date.value)">
+  </p>
+  <p> Маршрут <input #route list="routeNames" value="{{data.currentRoute.sign}}"
+    required (change)="routeChanged(route.value)"
+    (focus)="focus('routes')"> 
+    <datalist #routeNames id="routeNames">
+    <option *ngFor="let route of routes">
+      {{route._sign}}
+    </option>
+  </datalist>
+  </p>
+
+  <p>Смена<select #workOrder  required (change)="workOrderChanged(workOrder.value)"> 
+      <option *ngFor="let workOrder of [1,2,3]"
+      [attr.selected]="data._workOrder == workOrder ? workOrder : null">
+      {{workOrder}}
+    </option>
+    </select>
+  </p>
+
+  <p>Водитель <input #driver list="driversNames" value="{{data.currentDriver.fio}}"
+    required (change)="driverChanged(driver.value)"
+    (focus)="focus('drivers')">
+    <datalist #driversNames id="driversNames">
+        <option *ngFor="let driver of drivers">
+            {{driver._fio}}
+         </option> 
+      </datalist>
+  </p>
+
+  <p>Транспорт <input #transport list="transportNames" value="{{data.transporttransportId.number}}"
+    required (change)="transportChanged(transport.value)"
+    (focus)="focus('transport')">
+    <datalist #transportNames id="transportNames">
+        <option *ngFor="let t of transports">
+            {{t._number}}
+         </option> 
+      </datalist>
+  </p>
+
+
+</td>
+<td width=30%>
+ 
+
+</td>
+</tr>
+</table>
+</div>
+
+<button *ngIf="exist==false;" (click)="createNew()" type="submit">Создать</button>
+<button *ngIf="exist==true;" (click)="confirm()" type="submit">Подтвердить изменения</button>
+<button (click)="decline()">Отмена</button>

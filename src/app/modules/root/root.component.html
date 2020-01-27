@@ -1,0 +1,423 @@
+<div class="rootfon">
+  <div *ngIf="isMainFormVisible">
+
+    <div *ngIf="personalInfo!=null">
+      <p class="tableTitle" (click)="tableChangeVisible(0)">
+        Личные данные
+      </p>
+      <div *ngIf="showTable[0]==true" class="personalInfo"  border=1px>
+        <li>
+          ФИО: {{personalInfo.fio}}
+        </li>
+        <li>
+          Должность: {{personalInfo.role}}
+        </li>
+        <li>
+          График работы: {{personalInfo.timeMode}}/2
+        </li>
+        <li>
+          Доступен: {{personalInfo.isAvailable}}
+        </li>
+      </div>
+
+
+      <div *ngIf="schedule!=null" >
+        <p class="tableTitle" (click)="tableChangeVisible(1)">
+          График работы
+        </p>
+        <table class="dataTable" *ngIf="showTable[1]==true">
+          <tr *ngIf="showTablesFilters[1]==true">
+            <td></td>
+            <td>
+              <input #selectedDate type="date" (change)="changeSelectParameters('schedule','date',selectedDate.value)">
+            </td>
+            <td>
+              <input #selectedRoute type="text" value="{{scheduleParams.routeSign}}"
+                (change)="changeSelectParameters('schedule','routeSign',selectedRoute.value)">
+            </td>
+            <td>
+              <select #workOrder (change)="changeSelectParameters('schedule','workOrder',workOrder.value)">
+                <option *ngFor="let i of ['any',1,2,3]"
+                  [attr.selected]="scheduleParams.workOrder == i ? scheduleParams.workOrder : null">
+                  {{i}}
+                </option>
+              </select>
+            </td>
+            <td>
+              <input #driverFio type="text" value="{{scheduleParams.driverFio}}"
+                (change)="changeSelectParameters('schedule','driverFio',driverFio.value)">
+            </td>
+            <td>
+              <input #number type="text" value="{{scheduleParams.transportNumber}}"
+                (change)="changeSelectParameters('schedule','transportNumber',number.value)">
+            </td>
+            <td>
+              <div>
+                <input type="range" #limit id="limit" min="10" max="50" value={{scheduleLimit}} step="1"
+                  (input)="changePagingLimit('schedule',limit.value)">
+                {{scheduleLimit}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>#</td>
+            <td>Дата</td>
+            <td>Маршрут</td>
+            <td>Смена</td>
+            <td>Водитель</td>
+            <td>Транспорт</td>
+            <td class="filterSwitch" *ngIf="showTablesFilters[1]==true" (click)="filterChangeVisible(1)">скрыть фильтры
+            </td>
+            <td class="filterSwitch" *ngIf="showTablesFilters[1]==false" (click)="filterChangeVisible(1)">показать
+              фильтры</td>
+            <td>
+              <img (click)="applyFilter('schedule')" src="https://cdn.icon-icons.com/icons2/159/PNG/256/gtg_ok_accept_apply_22344.png"
+                class="btnimg" title="применить" alt="применить">
+            </td>
+          </tr>
+          <tr *ngFor="let record of schedule; let i = index">
+            <td>{{scheduleParams.page*scheduleParams.sizeLimit+i+1}}</td>
+            <td>{{record.date.getUTCDate()}}-{{record.date.getUTCMonth()+1}}-{{record.date.getFullYear()}}
+            </td>
+            <td>{{record.currentRoute.sign}}</td>
+            <td>{{record.workOrder}}</td>
+            <td>{{record.currentDriver.fio}}</td>
+            <td>{{record.transporttransportId.number}}</td>
+            <td *ngIf="personalInfo.accessLevel>1">
+              <img (click)="showEdit('record',i)" src="https://www.iconsdb.com/icons/preview/white/edit-property-xxl.png"
+                class="btnimg" title="редактировать" alt="редактировать">
+            </td>
+            <td *ngIf="personalInfo.accessLevel>1">
+              <Input type="checkbox" (change)="changeSelected('records',i)">
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <img (click)="prevPage('schedule')" src="https://www.iconsdb.com/icons/preview/white/arrow-111-xxl.png"
+                class="btnimg" title="назад" alt="назад">
+              <img (click)="nextPage('schedule')" src="https://www.iconsdb.com/icons/preview/white/arrow-11-xxl.png" class="btnimg"
+                title="вперед" alt="вперед">
+            </td>
+            <td></td>
+            <td *ngIf="personalInfo.accessLevel>1">
+              <img (click)="createNew('record')"
+                src="https://www.iconsdb.com/icons/preview/white/add-row-xxl.png" class="btnimg"
+                title="добавить" alt="добавить">
+            </td>
+            <td *ngIf="personalInfo.accessLevel>1">
+              <img *ngIf="selectedRecordsIndexes.length>0" (click)="deleteChosen('records')"
+                src="https://www.iconsdb.com/icons/preview/white/trash-2-xxl.png" class="btnimg" title="удалить"
+                alt="удалить">
+            </td>
+          </tr>
+
+        </table>
+
+        <p *ngIf="errorsList!=null && personalInfo.accessLevel>1" class="tableTitle" (click)="tableChangeVisible(5)">
+          Ошибки в расписании ({{errorsList.length}})</p>
+        <div *ngIf="errorsList!=null && showTable[5]==true" class="errorList">
+          <p *ngFor="let error of errorsList">
+            {{error}}
+          </p>
+        </div>
+
+      </div>
+
+      <div *ngIf="employees!=null && personalInfo.accessLevel>1">
+        <p class="tableTitle" (click)="tableChangeVisible(2)">Список сотрудников</p>
+        <table class="dataTable" *ngIf="showTable[2]==true">
+          <tr *ngIf="showTablesFilters[2]==true">
+            <td></td>
+            <td>
+              <input #fio type="text" value="{{employeesParams.fio}}"
+                (change)="changeSelectParameters('employees','fio',fio.value)">
+            </td>
+            <td>
+              <select #role (change)="changeSelectParameters('employees','role',role.value)">
+                <option *ngFor="let i of ['any','driver','dispatcher','admin']"
+                  [attr.selected]="employeesParams.role == i ? employeesParams.role : null">
+                  {{i}}
+                </option>
+              </select>
+            </td>
+            <td>
+              <select #timeMode (change)="changeSelectParameters('employees','timeMode',timeMode.value)">
+                <option *ngFor="let i of ['any','5/2','2/2']"
+                  [attr.selected]="employeesParams.timeMode[0] == i[0] ? employeesParams.timeMode : null">
+                  {{i}}
+                </option>
+              </select>
+            </td>
+            <td>
+              <select #isAvailable (change)="changeSelectParameters('employees','isAvailable',isAvailable.value)">
+                <option *ngFor="let i of ['any','true','false']"
+                  [attr.selected]="employeesParams.isAvailable == i ? employeesParams.isAvailable : null">
+                  {{i}}
+                </option>
+              </select>
+            </td>
+            <td>
+              <div>
+                <input type="range" #limit id="limit" min="10" max="50" value={{employeesLimit}} step="1"
+                  (input)="changePagingLimit('employees',limit.value)">
+                {{employeeLimit}}
+              </div>
+            </td>
+
+          </tr>
+          <tr>
+            <td>#</td>
+            <td>ФИО</td>
+            <td>Должность</td>
+            <td>График работы</td>
+            <td>Доступен</td>
+            <td class="filterSwitch" *ngIf="showTablesFilters[2]==true" (click)="filterChangeVisible(2)">скрыть фильтры
+            </td>
+            <td class="filterSwitch" *ngIf="showTablesFilters[2]==false" (click)="filterChangeVisible(2)">показать
+              фильтры</td>
+            <td>
+              <img (click)="applyFilter('employees')" src="https://cdn.icon-icons.com/icons2/159/PNG/256/gtg_ok_accept_apply_22344.png"
+                class="btnimg" title="применить" alt="применить">
+            </td>
+          </tr>
+          <tr *ngFor="let e of employees; let i = index">
+            <td>{{employeesParams.page*employeesParams.sizeLimit+i+1}}</td>
+            <td>{{e.fio}}</td>
+            <td>{{e.role}}</td>
+            <td>{{e.timeMode}}/2</td>
+            <td>{{e.isAvailable}}</td>
+            <td *ngIf="personalInfo.accessLevel>2">
+              <img (click)="showEdit('employee',i)" src="https://www.iconsdb.com/icons/preview/white/edit-property-xxl.png"
+                class="btnimg" title="редактировать" alt="редактировать">
+            </td>
+            <td *ngIf="personalInfo.accessLevel>2">
+              <Input type="checkbox" (change)="changeSelected('employees',i)">
+            </td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <img (click)="prevPage('employees')" src="https://www.iconsdb.com/icons/preview/white/arrow-111-xxl.png"
+                class="btnimg" title="назад" alt="назад">
+              <img (click)="nextPage('employees')" src="https://www.iconsdb.com/icons/preview/white/arrow-11-xxl.png"
+                class="btnimg" title="вперед" alt="вперед">
+            </td>
+            <td></td>
+            <td *ngIf="personalInfo.accessLevel>2">
+
+              <img (click)="createNew('employee')"
+                src="https://www.iconsdb.com/icons/preview/white/add-row-xxl.png" class="btnimg"
+                title="добавить" alt="добавить">
+            </td>
+            <td *ngIf="personalInfo.accessLevel>2">
+              <img *ngIf="selectedEmployeesIndexes.length>0" (click)="deleteChosen('employees')"
+                src="https://www.iconsdb.com/icons/preview/white/trash-2-xxl.png" class="btnimg" title="удалить"
+                alt="удалить">
+            </td>
+          </tr>
+        </table>
+
+
+      </div>
+
+      <div *ngIf="routes!=null && personalInfo.accessLevel>2">
+        <p class="tableTitle" (click)="tableChangeVisible(3)">Список маршрутов</p>
+        <table class="dataTable" *ngIf="showTable[3]==true">
+          <tr *ngIf="showTablesFilters[3]==true">
+            <td></td>
+            <td>
+              <input #sign type="text" value="{{routesParams.sign}}"
+                (change)="changeSelectParameters('routes','sign',sign.value)">
+            </td>
+            <td>
+              <select #transportNeededPrefix
+                (change)="changeSelectParameters('routes','transportNeededPrefix',transportNeededPrefix.value)">
+                <option *ngFor="let i of ['any','less','more','more or equal','less or equal','equal']"
+                  [attr.selected]="routesParams.transportNeededPrefix == i ? routesParams.transportNeededPrefix : null">
+                  {{i}}
+                </option>
+              </select>
+              <input #transportNeeded type="number" min="0" value="{{routesParams.transportNeeded}}"
+                (change)="changeSelectParameters('routes','transportNeeded',transportNeeded.value)">
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+              <div>
+                <input type="range" #limit id="limit" min="10" max="50" value={{routesLimit}} step="1"
+                  (input)="changePagingLimit('routes',limit.value)">
+                {{routesLimit}}
+              </div>
+            </td>
+
+          </tr>
+          <tr>
+            <td>#</td>
+            <td>Номер маршрута</td>
+            <td>Необходимо транспорта</td>
+            <td>Остановки</td>
+            <td>Время</td>
+            <td class="filterSwitch" *ngIf="showTablesFilters[3]==true" (click)="filterChangeVisible(3)">скрыть фильтры
+            </td>
+            <td class="filterSwitch" *ngIf="showTablesFilters[3]==false" (click)="filterChangeVisible(3)">показать
+              фильтры</td>
+            <td>
+              <img (click)="applyFilter('routes')" src="https://cdn.icon-icons.com/icons2/159/PNG/256/gtg_ok_accept_apply_22344.png"
+                class="btnimg" title="применить" alt="применить">
+            </td>
+          </tr>
+          <tr *ngFor="let r of routes; let i = index">
+            <td>{{routesParams.page*routesParams.sizeLimit+i+1}}</td>
+            <td>{{r.sign}}</td>
+            <td>{{r.transportNeeded}}</td>
+            <td class="list">
+              <li *ngFor="let sl of r.stopsList;">
+                {{sl}}
+              </li>
+            </td>
+            <td class="list">
+              <li *ngFor="let st of r.stopTimings;">
+                {{st}}
+              </li>
+            </td>
+            <td *ngIf="personalInfo.accessLevel>2">
+              <img (click)="showEdit('routes',i)" src="https://www.iconsdb.com/icons/preview/white/edit-property-xxl.png"
+                class="btnimg" title="редактировать" alt="редактировать">
+            </td>
+            <td *ngIf="personalInfo.accessLevel>2">
+              <Input type="checkbox" (change)="changeSelected('routes',i)">
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <img (click)="prevPage('routes')" src="https://www.iconsdb.com/icons/preview/white/arrow-111-xxl.png"
+                class="btnimg" title="назад" alt="назад">
+              <img (click)="nextPage('routes')" src="https://www.iconsdb.com/icons/preview/white/arrow-11-xxl.png" class="btnimg"
+                title="вперед" alt="вперед">
+            </td>
+            <td *ngIf="personalInfo.accessLevel>2">
+            <td *ngIf="personalInfo.accessLevel>2">
+              <img (click)="createNew('route')"
+                src="https://www.iconsdb.com/icons/preview/white/add-row-xxl.png" class="btnimg"
+                title="добавить" alt="добавить">
+            </td>
+            <td *ngIf="personalInfo.accessLevel>2">
+              <img *ngIf="selectedRoutesIndexes.length>0" (click)="deleteChosen('routes')"
+                src="https://www.iconsdb.com/icons/preview/white/trash-2-xxl.png" class="btnimg" title="удалить"
+                alt="удалить">
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
+      <div *ngIf="transport!=null && personalInfo.accessLevel>2">
+        <p class="tableTitle" (click)="tableChangeVisible(4)">Список транспорта</p>
+        <table class="dataTable" *ngIf="showTable[4]==true">
+          <tr *ngIf="showTablesFilters[4]==true">
+            <td></td>
+            <td>
+              <input #number type="text" value="{{transportParams.number}}"
+                (change)="changeSelectParameters('transport','number',number.value)">
+            </td>
+            <td>
+              <select #isAvailable (change)="changeSelectParameters('transport','isAvailable',isAvailable.value)">
+                <option *ngFor="let i of ['any','true','false']"
+                  [attr.selected]="transportParams.isAvailable == i ? transportParams.isAvailable : null">
+                  {{i}}
+                </option>
+              </select>
+            </td>
+            <td>
+              <div>
+                <input type="range" #limit id="limit" min="10" max="50" value={{transportLimit}} step="1"
+                  (input)="changePagingLimit('transport',limit.value)">
+                {{transportLimit}}
+              </div>
+            </td>
+
+          </tr>
+          <tr>
+            <td>#</td>
+            <td>Номер</td>
+            <td>Доступность</td>
+            <td class="filterSwitch" *ngIf="showTablesFilters[4]==true" (click)="filterChangeVisible(4)">скрыть фильтры
+            </td>
+            <td class="filterSwitch" *ngIf="showTablesFilters[4]==false" (click)="filterChangeVisible(4)">показать
+              фильтры</td>
+            <td>
+              <img (click)="applyFilter('transport')" src="https://cdn.icon-icons.com/icons2/159/PNG/256/gtg_ok_accept_apply_22344.png"
+                class="btnimg" title="применить" alt="применить">
+            </td>
+          </tr>
+          <tr *ngFor="let t of transport; let i = index">
+            <td>{{transportParams.page*transportParams.sizeLimit+i+1}}</td>
+            <td>{{t.number}}</td>
+            <td>{{t.isAvailable}}</td>
+            <td *ngIf="personalInfo.accessLevel>2">
+              <img (click)="showEdit('transport',i)" src="https://www.iconsdb.com/icons/preview/white/edit-property-xxl.png"
+                class="btnimg" title="редактировать" alt="редактировать">
+            </td>
+            <td *ngIf="personalInfo.accessLevel>2">
+              <Input type="checkbox" (change)="changeSelected('transport',i)">
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>
+              <img (click)="prevPage('transport')" src="https://www.iconsdb.com/icons/preview/white/arrow-111-xxl.png"
+                class="btnimg" title="назад" alt="назад">
+              <img (click)="nextPage('transport')" src="https://www.iconsdb.com/icons/preview/white/arrow-11-xxl.png"
+                class="btnimg" title="вперед" alt="вперед">
+            </td>
+            <td *ngIf="personalInfo.accessLevel>2">
+              <img (click)="createNew('transport')"
+                src="https://www.iconsdb.com/icons/preview/white/add-row-xxl.png" class="btnimg"
+                title="добавить" alt="добавить">
+            </td>
+            <td *ngIf="personalInfo.accessLevel>2">
+              <img *ngIf="selectedTransportIndexes.length>0" (click)="deleteChosen('transport')"
+                src="https://www.iconsdb.com/icons/preview/white/trash-2-xxl.png" class="btnimg" title="удалить"
+                alt="удалить">
+            </td>
+          </tr>
+        </table>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="isEmployeeEditVisible">
+    <app-edit-eployee></app-edit-eployee>
+  </div>
+
+  <div *ngIf="isRouteEditVisible">
+    <app-edit-route></app-edit-route>
+  </div>
+
+  <div *ngIf="isTransportEditVisible">
+    <app-edit-transport></app-edit-transport>
+  </div>
+
+  <div *ngIf="isScheduleEditVisible">
+    <app-edit-schedule></app-edit-schedule>
+  </div>
+
+  <div *ngIf="isDeleteFormVisible">
+    <app-delete-confirmation></app-delete-confirmation>
+  </div>
+
+</div>

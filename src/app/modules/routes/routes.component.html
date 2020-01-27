@@ -1,0 +1,47 @@
+<div class="routesfon">
+  <!-- а кому сейчас легко?
+    [маршрут][смена][рейс][направление][время]-->
+  <div *ngIf="routes?.length > 0 && timesCalculated">
+    <div *ngFor="let r of routes; let i = index">
+
+      <table>
+        <tr class="tableHeader" (click)="routeChangeVisible(i)">Маршрут {{r.sign}}</tr>
+        <tr *ngIf="showRoute[i]==true">
+          <td *ngFor="let order of [0,1,2]; let j = index">
+            <table class="routeTable">
+
+              <tr>
+                <td *ngIf="j==0">№ рейса</td>
+                <td *ngIf="j==0">Остановки</td>
+                <td>Время -></td>
+                <td>Время <-</td> </tr> <!--да что там говорить... ангуляр -->
+              <tr *ngFor="let a of ' '.repeat(routes[i].transportNeeded).split(''), let k = index">
+                <td *ngIf="j==0" valign="top">{{k+1}}</td>
+                <td *ngIf="j==0">
+                  <li class="list" *ngFor="let sl of r.stopsList; let a = index">
+                    {{sl}}
+                  </li>
+                </td>
+                <td class="list">
+                  <!-- туда -->
+                  <li *ngFor="let st of r.stopTimings; let b = index">
+                    {{departureTimes[i][j][k][0][b].getHours()}}:{{departureTimes[i][j][k][0][b].getMinutes()}}
+                  </li>
+                </td>
+                <td class="list">
+                  <!-- обратно -->
+                  <li *ngFor="let st of r.stopTimings; let b = index">
+                    {{departureTimes[i][j][k][1][b].getHours()}}:{{departureTimes[i][j][k][1][b].getMinutes()}}
+                  </li>
+                </td>
+
+              </tr>
+
+
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+
+
+.routerTable{
+height: 80%;
+width: 100%;
+overflow-y: scroll; 
+
+/* border-bottom-color: rgba(243, 243, 243, 0.849);
+border-bottom-width: 1px;
+border-block-start-style: dotted; */
+}
+
+ @keyframes fadein {
+    from { color: rgba(0, 0, 0, 0);}
+    to   { color: rgb(40, 40, 40, 0.7);}
+  }
+
+.header{
+    font-size: 25px;
+    text-align: center;
+    padding-top: 20px;
+    animation: fadein 10s;
+    color: rgba(40, 40, 40, 0.7);
+}
+
+.navTable{
+    margin-left: 10px;
+    margin-bottom: 20px;
+    width: 95%;   
+    font-size: 25px;
+    color:rgb(71, 25, 102);
+    
+}
+
+.link{
+    font-size: 20px;
+    margin-right: 10px;
+
+    width:1%;
+    white-space: nowrap;
+    transition-duration: 1s;
+}
+a:link {
+    text-decoration: none;
+    color:rgb(71, 25, 102);
+}
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(40, 40, 40, 0.7);
+    margin-bottom: 20px
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: #f5f5f5;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition-duration: 0.5s;
+  }
+  
+  li a:hover:not(.active) {
+    background-color: rgba(24, 58, 109, 0.7);
+  }
+  
+  .active {
+    background-color: rgba(23, 34, 46, 0.5);
+    
+  }
+  
