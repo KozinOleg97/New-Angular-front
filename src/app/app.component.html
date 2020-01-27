@@ -7,15 +7,19 @@
 <p class="header"> {{title}} </p>
 <ul>
   <li>
-    <a routerLink="/home" >Главная</a>
+    <a routerLink="/home" >Сделки</a>
   </li>
 
-  <li>
-    <a routerLink="/routes">Расписание</a>
-  </li>
+<!--  <li>-->
+<!--    <a routerLink="/routes">Расписание</a>-->
+<!--  </li>-->
 
   <li *ngIf="loggedIn==true">
-    <a routerLink="/root">Личный кабинет</a>
+    <a routerLink="/cabinet">Личный кабинет</a>
+  </li>
+
+  <li *ngIf="isAdmin==true">
+    <a routerLink="/admin">Панель администратора</a>
   </li>
 
 <!--  <li class="active" *ngIf="!loggedIn" style="float:right">-->

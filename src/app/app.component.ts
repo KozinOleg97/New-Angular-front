@@ -21,10 +21,25 @@ export class AppComponent {
   }
 
   loggedIn: boolean;
+  private _isAdmin: boolean;
 
+
+  get isAdmin(): boolean {
+    return this._isAdmin;
+  }
+
+  set isAdmin(value: boolean) {
+    this._isAdmin = value;
+  }
 
   ngOnInit() {
     const login = localStorage.getItem('login');
+    const role = localStorage.getItem('role');
+
+    if (role === 'admin') {
+      this.isAdmin = true;
+    }
+
     console.log('qweqweqweqew  ' + login);
     if (login != null) {
       console.log('then');
@@ -38,15 +53,18 @@ export class AppComponent {
 
     this.headerService.title.subscribe(title => {
       this.title = title;
-      if ((this.title == 'Добро пожаловать, гость!!' &&
-        this.loggedIn == true) ||
-        (this.title != 'Добро пожаловать, гость!' &&
-          this.loggedIn == false)
+      if ((this.title === 'Добро пожаловать, гость!!' &&
+        this.loggedIn === true) ||
+        (this.title !== 'Добро пожаловать, гость!' &&
+          this.loggedIn === false)
       ) {
         this.loggedIn = !this.loggedIn;
         window.location.reload();
       }
 
+      /**
+       *Место где произходит проверка нп вход TODO: можно лучше
+       */
       if (!this.loggedIn) {
         this.router.navigate(['login']);
       } else {
