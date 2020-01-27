@@ -42,14 +42,21 @@
 <!--</div>-->
 
 <table>
-  <tr>ID сделки</tr>
-  <tr></tr>
-  <tr>ID бокса</tr>
-
   <tr *ngFor="let deal of deals ">
-    <td>Состояние{{deal.id}}</td>
-    <td>{{deal.status}}</td>
-    <td>{{deal.box.id}}</td>
+    <td>
+      <small>Номер сделки:  </small>
+      <strong>{{deal.id}}</strong>
+    </td>
+
+    <td>
+      <small>Статус сделки:  </small>
+      <strong>{{deal.status}}</strong>
+    </td>
+
+    <td>
+      <small>Номер бокса:  </small>
+      <strong>{{deal.box.id}}</strong>
+    </td>
   </tr>
 </table>
 
@@ -73,6 +80,6 @@
   </div>
 </div>
 
-
+<app-data-table></app-data-table>
 
 

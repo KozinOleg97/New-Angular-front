@@ -16,26 +16,29 @@ import { AuthGuardService } from './services/auth-guard.service';
 
 import { RoutesComponent } from './modules/routes/routes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TableComponent } from './table/table.component';
+import { DataTableComponent } from './data-table/data-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: MainComponent },
   { path: 'routes', component: RoutesComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'root',  
+  { path: 'root',
   loadChildren: () => import('./modules/root/root.module').then(mod => mod.RootModule),
   canActivate: [AuthGuardService]
   }
 ]
 
 @NgModule({
-  imports:      [ 
+  imports:      [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule,   
-    HttpModule, BrowserAnimationsModule 
+    HttpClientModule,
+    HttpModule, BrowserAnimationsModule, MatTableModule, MatPaginatorModule, MatSortModule
       ],
       exports:[
         RouterModule
@@ -47,12 +50,12 @@ const appRoutes: Routes = [
         AuthGuardService
         ],
 
-  declarations: [ 
+  declarations: [
     AppComponent,
     MainComponent,
     LoginComponent,
     RoutesComponent,
-    TableComponent,
+    DataTableComponent,
      ],
   bootstrap:    [ AppComponent ]
 })
