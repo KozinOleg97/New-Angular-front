@@ -1,3 +1,6 @@
+
 export interface Role {
-  name: String;
+  id: number;
+  name: string;
+
 }
