@@ -18,7 +18,7 @@ export class AuthGuardService implements CanActivate {
       const accessToken = localStorage.getItem('accessToken');
       console.log(accessToken);
       if(accessToken==null){
-        window.alert("log in first, horosho?");
+        window.alert("Token == NULL");
         this.router.navigate(['login']);
         return false;
       }

@@ -1,45 +1,136 @@
-p{
-    text-align: center;
-    color: #f5f5f5;
+/*p{*/
+/*    text-align: center;*/
+/*    color: #f5f5f5;*/
+/*}*/
+
+/*.container{*/
+/*    background-color:  rgba(40, 40, 40, 0.7);*/
+/*    border-radius:25px;*/
+/*    padding: 20px;*/
+
+/*}*/
+
+/*.style1{*/
+/*    color: #f5f5f5;*/
+/*    !* font-family: ‘Open Sans Condensed’, sans-serif;  *!*/
+/*    font-size: 24px;*/
+/*    font-weight: 700;*/
+/*    line-height: 64px;*/
+/*    margin: 0 0 0;*/
+/*    padding: 0px 0px;*/
+/*    text-align: center;*/
+/*    text-transform: uppercase;*/
+/*}*/
+
+/*.style2{*/
+/*    text-align: justify;*/
+/*    font-size: 18px;*/
+/*    !* font-family: 'Bitter'; *!*/
+/*    color: #f5f5f5;*/
+/*}*/
+
+/*table{*/
+/*  text-align: left;*/
+/*  vertical-align: top;*/
+/*  margin: auto;*/
+/*  width: 100%;*/
+/*}*/
+/*tr{*/
+/*  vertical-align: top;*/
+/*  text-align: center;*/
+/*}*/
+/*th{*/
+/*  vertical-align: top;*/
+/*  text-align: center;*/
+/*}*/
+
+table.blueTable {
+  border: 1px solid #a4003a;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.blueTable td, table.blueTable th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+table.blueTable tbody td {
+  font-size: 13px;
+}
+table.blueTable tr:nth-child(even) {
+  background: #D0E4F5;
+}
+table.blueTable thead {
+  background: #1C6EA4;
+  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  border-bottom: 2px solid #444444;
+}
+table.blueTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #D0E4F5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
 }
 
-.container{
-    background-color:  rgba(40, 40, 40, 0.7);
-    border-radius:25px;
-    padding: 20px;
 
+table.blueTable tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #D0E4F5;
+  background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  border-top: 2px solid #444444;
+}
+table.blueTable tfoot td {
+  font-size: 14px;
+}
+table.blueTable tfoot .links {
+  text-align: center;
+}
+table.blueTable tfoot .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+Strong {
+  color: red; /* Цвет символа */
+  /*font-size: 200%; !* Размер шрифта *!*/
+}
+Small {
+  color: rgb(151, 4, 39); /* Цвет текста */
 }
 
-.style1{
-    color: #f5f5f5;
-    /* font-family: ‘Open Sans Condensed’, sans-serif;  */
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 64px;
-    margin: 0 0 0;
-    padding: 0px 0px;
-    text-align: center;
-    text-transform: uppercase;
+#table-wrapper {
+  position:relative;
 }
-
-.style2{
-    text-align: justify;
-    font-size: 18px;
-    /* font-family: 'Bitter'; */
-    color: #f5f5f5;
+#table-scroll {
+  height:450px;
+  overflow:auto;
+  margin-top:20px;
 }
-
-table{
-  text-align: left;
-  vertical-align: top;
-  margin: auto;
+#table-wrapper table {
   width: 100%;
 }
-tr{
-  vertical-align: top;
+
+button {
+  background-color: #455eaf; /* Green */
+  border: none;
+  color: #f6f4ff;
+  padding: 15px 32px;
   text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
 }
-th{
-  vertical-align: top;
-  text-align: center;
-}
+
